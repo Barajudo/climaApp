@@ -70,33 +70,35 @@ const leerInput = async (message) => {
   return descripcion;
 };
 
-const listadoTareasBorrar = async (tareas = "") => {
-  const choices = tareas.map((tarea, index) => {
+const listadoLugaresBuscados = async ( lugares = [] ) => {
+
+  const choices = lugares.map(( lugar, index ) => {
     const idx = `${index + 1}.`.yellow;
 
     return {
-      value: tarea.id,
-      name: `${idx} ${tarea.descripcion}`,
+      value: lugar.id,
+      name: `${idx} ${lugar.nombre}`,
     };
   });
 
   choices.unshift({
-    value: "0",
+    value: 0,
     name: "0.".red + " Cancelar",
   });
 
-  const preguntas = [
+  const opciones = [
     {
       type: "list",
       name: "id",
-      message: "¿Cuál tarea deseas eliminar?".red,
+      message: "Selecciona un lugar:".red,
       choices,
     },
   ];
 
-  const { id } = await inquirer.prompt(preguntas);
+  const { id } = await inquirer.prompt( opciones );
 
   return id;
+
 };
 
 const mostrarListadoChecklist = async (tareas = "") => {
@@ -142,7 +144,7 @@ module.exports = {
   inquirerMenu,
   pausa,
   leerInput,
-  listadoTareasBorrar,
+  listadoLugaresBuscados,
   validador,
   mostrarListadoChecklist,
 };
